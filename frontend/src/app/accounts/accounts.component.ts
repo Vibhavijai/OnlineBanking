@@ -69,7 +69,7 @@ export class AccountsComponent implements OnInit {
     } else if (operationType == 'CREDIT') {
       this.accountService.credit(accountId, amount, description).subscribe({
         next: (data) => {
-          alert('Success Credit');
+          alert('Success Credit!!!');
           this.operationFromGroup.reset();
           this.handleSearchAccount();
         },
