@@ -13,6 +13,9 @@
                 Search
               </button>
             </div>
+            <div class="mt-2">
+              <a [routerLink]="['/new-customer']">New Customer? Register here.</a>
+            </div>
           </form>
           <ng-template #errorTemplate>
             <ng-container *ngIf="errorMessage; else loading">
@@ -33,15 +36,20 @@
             </div>
             <table class="table">
               <thead>
-              <th>ID</th><th>Date</th><th>Type</th><th>Amount</th>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let op of accountDetails.accountOperationDTOS">
-                <td>{{op.id}}</td>
-                <td>{{op.operationDate | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
-                <td>{{op.type}}</td>
-                <td class="text-end">{{op.amount | number : '1.2-2'}}</td>
-              </tr>
+                <tr *ngFor="let op of accountDetails.accountOperationDTOS">
+                  <td>{{op.id}}</td>
+                  <td>{{op.operationDate | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
+                  <td>{{op.type}}</td>
+                  <td class="text-end">{{op.amount | number : '1.2-2'}}</td>
+                </tr>
               </tbody>
             </table>
             <ul class="nav nav-pills">
