@@ -14,4 +14,7 @@ public class CustomerDTO {
     private Long id;
     private String name;
     private String email;
+    private String acc;
+    private long balance;
+    private String type;
 }

@@ -45,6 +45,9 @@ public class EbankingBackendApplication {
                 CustomerDTO customer = new CustomerDTO();
                 customer.setName(name);
                 customer.setEmail(name + "@gmail.com");
+                customer.setAcc("12312312312344");
+                customer.setBalance(9000);
+                customer.setType("SA");
                 bankAccountService.saveCustomer(customer);
             });
 
@@ -82,6 +85,10 @@ public class EbankingBackendApplication {
                 Customer customer = new Customer();
                 customer.setName(name);
                 customer.setEmail(name + "@gmail.com");
+
+                customer.setAcc("12312312312344");
+                customer.setBalance(9000);
+                customer.setType("CA");
                 customerRepository.save(customer);
             });
 

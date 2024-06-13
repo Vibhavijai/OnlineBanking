@@ -10,25 +10,23 @@ import { environment } from '../../environments/environment';
 export class CustomerService {
   constructor(private http: HttpClient) { }
 
-  public getCustomers(): Observable<Array<Customer>> {
-    return this.http.get<Array<Customer>>(`${environment.backendHost}/customers`);
+  // Fetch all customers
+  public getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${environment.backendHost}/customers`);
   }
 
-  public searchCustomers(keyword: string): Observable<Array<Customer>> {
-    return this.http.get<Array<Customer>>(`${environment.backendHost}/customers/search?keyword=${keyword}`);
+  // Search customers by keyword
+  public searchCustomers(keyword: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${environment.backendHost}/customers/search?keyword=${keyword}`);
   }
 
+  // Save a new customer
   public saveCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(`${environment.backendHost}/customers`, customer);
   }
 
-  public deleteCustomer(id: number) {
-    return this.http.delete(`${environment.backendHost}/customers/${id}`);
-  }
-
-  // Method to create a new customer with an initial account
-  public saveCustomerWithAccount(customer: Customer, accountType: string, accountId: string, initialAmount: number): Observable<any> {
-    const data = { ...customer, accountType, accountId, initialAmount };
-    return this.http.post(`${environment.backendHost}/customers/withAccount`, data);
+  // Delete a customer by ID
+  public deleteCustomer(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.backendHost}/customers/${id}`);
   }
 }

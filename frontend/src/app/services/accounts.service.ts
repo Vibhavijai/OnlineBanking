@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
-import { AccountDetails } from "../model/account.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class AccountsService {
   constructor(private http: HttpClient) { }
 
   // Method to fetch account details with pagination
-  public getAccount(accountId: string, page: number, size: number): Observable<AccountDetails> {
-    return this.http.get<AccountDetails>(`${environment.backendHost}/accounts/${accountId}/pageOperations?page=${page}&size=${size}`);
+  public getAccount(accountId: string, page: number, size: number): Observable<any> {
+    return this.http.get(`${environment.backendHost}/accounts/${accountId}/pageOperations?page=${page}&size=${size}`);
   }
 
   // Method for performing a debit operation

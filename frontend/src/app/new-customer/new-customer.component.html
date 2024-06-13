@@ -25,28 +25,28 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Account Type:</label>
-          <select formControlName="accountType" class="form-control">
-            <option value="SA">SA</option>
+          <select formControlName="type" class="form-control" >
+            <option value="SA" >SA</option>
             <option value="CA">CA</option>
           </select>
         </div>
         <div class="mb-3">
           <label class="form-label">Account ID:</label>
-          <input type="text" formControlName="accountId" class="form-control">
+          <input type="text" formControlName="acc" class="form-control">
           <span class="text-danger"
-                *ngIf="newCustomerFormGroup.controls['accountId'].touched
-                && newCustomerFormGroup.controls['accountId'].errors
-                && newCustomerFormGroup.controls['accountId'].errors!['pattern']">
+                *ngIf="newCustomerFormGroup.controls['acc'].touched
+                && newCustomerFormGroup.controls['acc'].errors
+                && newCustomerFormGroup.controls['acc'].errors!['pattern']">
             Account ID must be a 14-digit number
           </span>
         </div>
         <div class="mb-3">
           <label class="form-label">Initial Amount:</label>
-          <input type="text" formControlName="initialAmount" class="form-control">
+          <input type="text" formControlName="balance" class="form-control">
           <span class="text-danger"
-                *ngIf="newCustomerFormGroup.controls['initialAmount'].touched
-                && newCustomerFormGroup.controls['initialAmount'].errors
-                && newCustomerFormGroup.controls['initialAmount'].errors!['min']">
+                *ngIf="newCustomerFormGroup.controls['balance'].touched
+                && newCustomerFormGroup.controls['balance'].errors
+                && newCustomerFormGroup.controls['balance'].errors!['min']">
             Initial amount must be at least 1000
           </span>
         </div>
