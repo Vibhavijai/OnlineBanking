@@ -1,14 +1,19 @@
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Customer } from '../model/customer.model';
 import { environment } from '../../environments/environment';
+import { AccountsService } from './accounts.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private accountsService: AccountsService
+  ) { }
 
   // Fetch all customers
   public getCustomers(): Observable<Customer[]> {
@@ -23,6 +28,12 @@ export class CustomerService {
   // Save a new customer
   public saveCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(`${environment.backendHost}/customers`, customer);
+  }
+
+  // Save customer and trigger credit operation
+  public saveCustomerAndTriggerCredit(accountId: string, initialAmount: number,description:string): Observable<any> {
+ 
+    return this.accountsService.credit(accountId, initialAmount, 'Initial amount');
   }
 
   // Delete a customer by ID

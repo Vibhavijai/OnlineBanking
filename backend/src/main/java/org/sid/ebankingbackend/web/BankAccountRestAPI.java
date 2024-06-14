@@ -4,6 +4,7 @@ import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.services.BankAccountService;
+import org.sid.ebankingbackend.services.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,15 +13,12 @@ import java.util.List;
 @CrossOrigin("*")
 public class BankAccountRestAPI {
     private BankAccountService bankAccountService;
-
+    private CustomerService customerService;
     public BankAccountRestAPI(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-    @GetMapping("/accounts/{accountId}")
-    public BankAccountDTO getBankAccount(@PathVariable String accountId) throws BankAccountNotFoundException {
-        return bankAccountService.getBankAccount(accountId);
-    }
+
 
     @GetMapping("/accounts")
     public List<BankAccountDTO> listAccounts() {

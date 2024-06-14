@@ -24,7 +24,8 @@ export class AccountsService {
   // Method for performing a credit operation
   public credit(accountId: string, amount: number, description: string) {
     const data = { accountId: accountId, amount: amount, description: description };
-    return this.http.post(environment.backendHost + "/accounts/credit", data);
+
+    return this.http.post(environment.backendHost+"/accounts/credit", data);
   }
 
   // Method for performing a transfer operation

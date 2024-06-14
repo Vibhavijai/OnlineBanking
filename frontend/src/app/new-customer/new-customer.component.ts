@@ -22,6 +22,7 @@ export class NewCustomerComponent implements OnInit {
       acc: this.fb.control(null,[Validators.required, Validators.pattern(/^\d{14}$/)]),
       balance: this.fb.control(null,[Validators.required, Validators.min(1000)])
     });
+
   }
 
   handleSaveCustomer() {
@@ -36,6 +37,19 @@ export class NewCustomerComponent implements OnInit {
         console.log(err);
       }
     });
+    let accountId = this.newCustomerFormGroup.value.acc;
+    let initialAmount = this.newCustomerFormGroup.value.balance;
+
+    this.customerService.saveCustomerAndTriggerCredit(accountId, initialAmount,"initial amount").subscribe({
+      next: data => {
+        alert("Credit operation done!");
+        // Optionally reset the form or navigate somewhere
+        //this.newCustomerFormGroup.reset();
+        //this.router.navigateByUrl("/customers");
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
   }
 }
-

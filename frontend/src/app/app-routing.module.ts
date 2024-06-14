@@ -5,6 +5,9 @@ import {AccountsComponent} from "./accounts/accounts.component";
 import {HomeComponent} from "./home/home.component";
 import {NewCustomerComponent} from "./new-customer/new-customer.component";
 import {CustomerAccountsComponent} from "./customer-accounts/customer-accounts.component";
+import { CustomerService } from './services/customer.service';
+import { AccountsService } from './services/accounts.service';
+import {CategoryComponent} from "./category/category.component";
 
 const routes: Routes = [
   { path :"customers", component : CustomersComponent},
@@ -12,6 +15,7 @@ const routes: Routes = [
   { path :"home", component :HomeComponent},
   { path :"new-customer", component : NewCustomerComponent},
   { path :"customer-accounts/:id", component : CustomerAccountsComponent},
+  { path :"category", component : CategoryComponent},
 ];
 
 @NgModule({

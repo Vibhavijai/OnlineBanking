@@ -11,6 +11,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
 import { HomeComponent } from './home/home.component';
+import { CustomerService } from './services/customer.service';
+import { AccountsService } from './services/accounts.service';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { HomeComponent } from './home/home.component';
     AccountsComponent,
     NewCustomerComponent,
     CustomerAccountsComponent,
-    HomeComponent
+    HomeComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,10 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CustomerService,
+    AccountsService  // Ensure AccountsService is provided here
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
