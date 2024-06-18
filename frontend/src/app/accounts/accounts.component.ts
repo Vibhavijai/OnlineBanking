@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AccountsService } from '../services/accounts.service';
+import { CustomerService } from '../services/customer.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../model/account.model';
 
@@ -17,7 +18,7 @@ export class AccountsComponent implements OnInit {
   operationFromGroup!: FormGroup;
   errorMessage!: string;
 
-  constructor(private fb: FormBuilder, private accountService: AccountsService) { }
+  constructor(private fb: FormBuilder, private accountService: AccountsService,private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.accountFormGroup = this.fb.group({
@@ -34,7 +35,7 @@ export class AccountsComponent implements OnInit {
 
   handleSearchAccount() {
     let accountId: string = this.accountFormGroup.value.accountId;
-    this.accountObservable = this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
+    this.accountObservable = this.customerService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
         this.errorMessage = err.message;
         return throwError(err);

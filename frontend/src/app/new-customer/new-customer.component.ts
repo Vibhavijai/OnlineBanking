@@ -17,9 +17,9 @@ export class NewCustomerComponent implements OnInit {
     this.newCustomerFormGroup=this.fb.group({
       name : this.fb.control(null, [Validators.required, Validators.minLength(4)]),
       email : this.fb.control(null,[Validators.required, Validators.email]),
-      
+
       type: this.fb.control(null,[Validators.required]),
-      acc: this.fb.control(null,[Validators.required, Validators.pattern(/^\d{14}$/)]),
+      acc: this.fb.control(null,[Validators.required]),
       balance: this.fb.control(null,[Validators.required, Validators.min(1000)])
     });
 
@@ -27,16 +27,7 @@ export class NewCustomerComponent implements OnInit {
 
   handleSaveCustomer() {
     let customer:Customer=this.newCustomerFormGroup.value;
-    this.customerService.saveCustomer(customer).subscribe({
-      next : data=>{
-        alert("Customer has been successfully saved!");
-        //this.newCustomerFormGroup.reset();
-        this.router.navigateByUrl("/customers");
-      },
-      error : err => {
-        console.log(err);
-      }
-    });
+
     let accountId = this.newCustomerFormGroup.value.acc;
     let initialAmount = this.newCustomerFormGroup.value.balance;
 
@@ -51,5 +42,15 @@ export class NewCustomerComponent implements OnInit {
         console.log(err);
       }
     });
+     this.customerService.saveCustomer(customer).subscribe({
+          next : data=>{
+            alert("Customer has been successfully saved!");
+            //this.newCustomerFormGroup.reset();
+            this.router.navigateByUrl("/customers");
+          },
+          error : err => {
+            console.log(err);
+          }
+        });
   }
 }

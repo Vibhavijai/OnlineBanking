@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,7 +9,8 @@ import { AccountsService } from './accounts.service';
   providedIn: 'root'
 })
 export class CustomerService {
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private accountsService: AccountsService
   ) { }
 
@@ -31,8 +30,7 @@ export class CustomerService {
   }
 
   // Save customer and trigger credit operation
-  public saveCustomerAndTriggerCredit(accountId: string, initialAmount: number,description:string): Observable<any> {
- 
+  public saveCustomerAndTriggerCredit(accountId: string, initialAmount: number, description: string): Observable<any> {
     return this.accountsService.credit(accountId, initialAmount, 'Initial amount');
   }
 
@@ -40,4 +38,9 @@ export class CustomerService {
   public deleteCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.backendHost}/customers/${id}`);
   }
+
+  // Fetch account details using AccountsService
+    public getAccount(accountId: string, page: number, size: number): Observable<any> {
+      return this.http.get<any>(`${environment.backendHost}/customers/account/${accountId}/transactions?page=${page}&size=${size}`);
+    }
 }
