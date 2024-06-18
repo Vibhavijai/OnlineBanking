@@ -32,7 +32,7 @@ export class CustomerService {
 
   // Save customer and trigger credit operation
   public saveCustomerAndTriggerCredit(accountId: string, initialAmount: number,description:string): Observable<any> {
- 
+
     return this.accountsService.credit(accountId, initialAmount, 'Initial amount');
   }
 
@@ -40,4 +40,8 @@ export class CustomerService {
   public deleteCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.backendHost}/customers/${id}`);
   }
+  public saveCustomerAndBankAccount(customer: Customer): Observable<any> {
+    return this.http.post<any>(`${environment.backendHost}/customers/saveWithAccount`, customer);
+  }
+
 }

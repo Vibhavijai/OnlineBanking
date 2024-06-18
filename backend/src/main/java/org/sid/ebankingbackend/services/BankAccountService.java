@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface BankAccountService {
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
-    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
-    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException;
     List<CustomerDTO> listCustomers();
     BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
     void debit(String accountId, double amount, String description, String category) throws BankAccountNotFoundException, BalanceNotSufficientException;
@@ -24,4 +24,5 @@ public interface BankAccountService {
     List<AccountOperationDTO> accountHistory(String accountId);
     AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
     List<CustomerDTO> searchCustomers(String keyword);
+    CustomerDTO saveCustomerWithAccount(CustomerDTO customerDTO) throws CustomerNotFoundException;
 }

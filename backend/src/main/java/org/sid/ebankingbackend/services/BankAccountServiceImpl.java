@@ -41,31 +41,31 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException {
-        Customer customer=customerRepository.findById(customerId).orElse(null);
-        if(customer==null)
-            throw new CustomerNotFoundException("Customer not found");
-        CurrentAccount currentAccount=new CurrentAccount();
-        currentAccount.setId(UUID.randomUUID().toString());
+    public CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+
+        CurrentAccount currentAccount = new CurrentAccount();
+        currentAccount.setId(customer.getAcc()); // Assuming customer.getAcc() returns the ID
         currentAccount.setCreatedAt(new Date());
-        currentAccount.setBalance(initialBalance);
-        currentAccount.setOverDraft(overDraft);
+        currentAccount.setBalance(customer.getBalance()); // Assuming customer.getBalance() returns initial balance
+
         currentAccount.setCustomer(customer);
+
         CurrentAccount savedBankAccount = bankAccountRepository.save(currentAccount);
         return dtoMapper.fromCurrentBankAccount(savedBankAccount);
     }
 
     @Override
-    public SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException {
-        Customer customer=customerRepository.findById(customerId).orElse(null);
-        if(customer==null)
-            throw new CustomerNotFoundException("Customer not found");
-        SavingAccount savingAccount=new SavingAccount();
-        savingAccount.setId(UUID.randomUUID().toString());
+    public SavingBankAccountDTO saveSavingBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
+
+        SavingAccount savingAccount = new SavingAccount();
+        savingAccount.setId(customer.getAcc()); // Assuming customer.getAcc() returns the ID
         savingAccount.setCreatedAt(new Date());
-        savingAccount.setBalance(initialBalance);
-        savingAccount.setInterestRate(interestRate);
+        savingAccount.setBalance(customer.getBalance()); // Assuming customer.getBalance() returns initial balance
+
         savingAccount.setCustomer(customer);
+
         SavingAccount savedBankAccount = bankAccountRepository.save(savingAccount);
         return dtoMapper.fromSavingBankAccount(savedBankAccount);
     }
@@ -190,4 +190,17 @@ public class BankAccountServiceImpl implements BankAccountService {
         List<Customer> customers = customerRepository.searchCustomer(keyword);
         return customers.stream().map(dtoMapper::fromCustomer).collect(Collectors.toList());
     }
+    public CustomerDTO saveCustomerWithAccount(CustomerDTO customerDTO) throws CustomerNotFoundException {
+        CustomerDTO savedCustomer = this.saveCustomer(customerDTO);
+
+        if (customerDTO.getType().equals("CA")) {
+
+            this.saveCurrentBankAccount(customerDTO.getInitialBalance(), savedCustomer.getId());
+        } else if (customerDTO.getType().equals("SA")) {
+            this.saveSavingBankAccount(customerDTO.getInitialBalance(),  savedCustomer.getId());
+        }
+
+        return savedCustomer;
+    }
+
 }

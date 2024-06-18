@@ -3,6 +3,7 @@ package org.sid.ebankingbackend.web;
 import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
+import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
 import org.sid.ebankingbackend.services.BankAccountService;
 import org.sid.ebankingbackend.services.CustomerService;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +59,9 @@ public class BankAccountRestAPI {
                 transferRequestDTO.getAmount(),
                 transferRequestDTO.getDescription(),
                 transferRequestDTO.getCategory());
+    }
+    @PostMapping("/customers/saveWithAccount")
+    public CustomerDTO saveCustomerWithAccount(@RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+        return bankAccountService.saveCustomerWithAccount(customerDTO);
     }
 }
