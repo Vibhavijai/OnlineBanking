@@ -35,7 +35,7 @@ export class AccountsComponent implements OnInit {
 
   handleSearchAccount() {
     let accountId: string = this.accountFormGroup.value.accountId;
-    this.accountObservable = this.customerService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
+    this.accountObservable = this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
         this.errorMessage = err.message;
         return throwError(err);
