@@ -44,6 +44,7 @@ export class CategoryComponent implements OnInit {
   private fetchAllPages(accountId: string): Observable<AccountDetails[]> {
     return this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
+      alert('Invalid accountId');
         this.errorMessage = err.message;
         return throwError(err);
       }),

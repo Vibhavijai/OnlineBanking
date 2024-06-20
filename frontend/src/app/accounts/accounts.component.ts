@@ -17,8 +17,9 @@ export class AccountsComponent implements OnInit {
   accountObservable!: Observable<AccountDetails>;
   operationFromGroup!: FormGroup;
   errorMessage!: string;
+  accountFound: boolean = false;
 
-  constructor(private fb: FormBuilder, private accountService: AccountsService,private customerService: CustomerService) { }
+  constructor(private fb: FormBuilder, private accountService: AccountsService, private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.accountFormGroup = this.fb.group({
@@ -29,7 +30,16 @@ export class AccountsComponent implements OnInit {
       amount: this.fb.control(0),
       description: this.fb.control(null),
       accountDestination: this.fb.control(null),
-      category: this.fb.control(null) // New form control for category
+      category: this.fb.control({value: null, disabled: true}) // Initially disabled
+    });
+
+    // Listen to changes in operationType to enable/disable category
+    this.operationFromGroup.get('operationType')?.valueChanges.subscribe(operationType => {
+      if (operationType === 'CREDIT') {
+        this.operationFromGroup.get('category')?.disable();
+      } else {
+        this.operationFromGroup.get('category')?.enable();
+      }
     });
   }
 
@@ -38,9 +48,20 @@ export class AccountsComponent implements OnInit {
     this.accountObservable = this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
         this.errorMessage = err.message;
+        this.accountFound = false;
         return throwError(err);
       })
     );
+    this.accountObservable.subscribe({
+      next: (accountDetails) => {
+        this.accountFound = true;
+        this.errorMessage = '';
+      },
+      error: (err) => {
+        this.accountFound = false;
+        alert('Invalid accountId');
+      }
+    });
   }
 
   gotoPage(page: number) {
@@ -54,7 +75,7 @@ export class AccountsComponent implements OnInit {
     let amount: number = this.operationFromGroup.value.amount;
     let description: string = this.operationFromGroup.value.description;
     let accountDestination: string = this.operationFromGroup.value.accountDestination;
-    let category: string = this.operationFromGroup.value.category; // Get the category value
+    let category: string = this.operationFromGroup.value.category;
 
     if (operationType == 'DEBIT') {
       this.accountService.debit(accountId, amount, description, category).subscribe({
@@ -64,6 +85,7 @@ export class AccountsComponent implements OnInit {
           this.handleSearchAccount();
         },
         error: (err) => {
+          alert('Insufficient balance');
           console.log(err);
         }
       });
@@ -86,6 +108,7 @@ export class AccountsComponent implements OnInit {
           this.handleSearchAccount();
         },
         error: (err) => {
+          alert('Insufficient balance or invalid destination Id');
           console.log(err);
         }
       });

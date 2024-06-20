@@ -19,7 +19,7 @@ export class NewCustomerComponent implements OnInit {
       email : this.fb.control(null,[Validators.required, Validators.email]),
 
       type: this.fb.control(null,[Validators.required]),
-      acc: this.fb.control(null,[Validators.required]),
+      acc: this.fb.control(null, [Validators.required, Validators.pattern(/^\d{14}$/)]),
       balance: this.fb.control(null,[Validators.required, Validators.min(1000)])
     });
 
