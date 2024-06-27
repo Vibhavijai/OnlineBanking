@@ -5,21 +5,28 @@ import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
 import org.sid.ebankingbackend.services.BankAccountService;
-import org.sid.ebankingbackend.services.CustomerService;
+//import org.sid.ebankingbackend.services.CustomerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
 @RestController
 @CrossOrigin("*")
+
 public class BankAccountRestAPI {
     private BankAccountService bankAccountService;
-    private CustomerService customerService;
+    //private CustomerService customerService;
     public BankAccountRestAPI(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-
+    @PostMapping("/login")
+    public Integer loginToMyAccount(@RequestBody String entity) {
+        return bankAccountService.loginAuth();
+    }
 
     @GetMapping("/accounts")
     public List<BankAccountDTO> listAccounts() {

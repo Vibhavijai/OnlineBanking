@@ -1,7 +1,11 @@
 package org.sid.ebankingbackend.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.sid.ebankingbackend.EbankingBackendApplication;
 import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.entities.*;
 import org.sid.ebankingbackend.enums.OperationType;
@@ -14,6 +18,8 @@ import org.sid.ebankingbackend.repositories.BankAccountRepository;
 import org.sid.ebankingbackend.repositories.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +38,16 @@ public class BankAccountServiceImpl implements BankAccountService {
     private AccountOperationRepository accountOperationRepository;
     private BankAccountMapperImpl dtoMapper;
 
+    private static final Logger log = LoggerFactory.getLogger(EbankingBackendApplication.class);
+
+    
+    @Override
+    public Integer loginAuth() {
+        log.info("Login for customer");
+        
+        return (ResponseEntity.ok("login successful")).getStatusCodeValue();
+    }
+    
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         log.info("Saving new Customer");

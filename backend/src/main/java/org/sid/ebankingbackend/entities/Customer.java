@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Customer {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
@@ -19,5 +20,9 @@ public class Customer {
     private String type;
     @OneToMany(mappedBy = "customer")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccounts;           
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<LoanEntity> loanEntities;
+    
 }

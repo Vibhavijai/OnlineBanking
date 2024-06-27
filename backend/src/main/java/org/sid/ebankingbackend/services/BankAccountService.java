@@ -4,11 +4,12 @@ import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface BankAccountService {
-    CustomerDTO saveCustomer(CustomerDTO customerDTO);
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);                     
     CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException;
     SavingBankAccountDTO saveSavingBankAccount(double initialBalance, Long customerId) throws CustomerNotFoundException;
     List<CustomerDTO> listCustomers();
@@ -25,4 +26,6 @@ public interface BankAccountService {
     AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
     List<CustomerDTO> searchCustomers(String keyword);
     CustomerDTO saveCustomerWithAccount(CustomerDTO customerDTO) throws CustomerNotFoundException;
+
+   Integer loginAuth();
 }

@@ -14,6 +14,14 @@ import { HomeComponent } from './home/home.component';
 import { CustomerService } from './services/customer.service';
 import { AccountsService } from './services/accounts.service';
 import { CategoryComponent } from './category/category.component';
+import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
+import { LoanadminComponent } from './loanadmin/loanadmin.component';
+import { AdminheaderComponent } from './adminheader/adminheader.component';
+
+
 
 @NgModule({
   declarations: [
@@ -24,13 +32,20 @@ import { CategoryComponent } from './category/category.component';
     NewCustomerComponent,
     CustomerAccountsComponent,
     HomeComponent,
-    CategoryComponent
+    CategoryComponent,
+    LoginComponent,
+    FooterComponent,
+    ProfileComponent,
+    LoanadminComponent,
+    AdminheaderComponent
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     CustomerService,
