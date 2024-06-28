@@ -32,19 +32,35 @@ public class PaymentService {
                 .map(dtoMapper::fromPayment)
                 .collect(Collectors.toList());
     }//////////////////////////done
-    public List<PaymentDTO> filterPayments(Long loan_id, Date start_date, Date end_date, Double min_amount, Double max_amount) {
+    public List<Payment> filterPayments(Long loan_id, Date start_date, Date end_date, Double min_amount, Double max_amount) {
         List<Payment> payments = paymentRepository.findByAttributes(min_amount, max_amount, start_date, end_date, loan_id);
-        return payments.stream().map(dtoMapper::fromPayment).collect(Collectors.toList());
+        return payments;
     }//////////////////////////done
 
-    public List<PaymentDTO> getPaymentbyCustomerId(Long customer_id) {
-        List<Payment> payments = paymentRepository.findByCustomerId(customer_id);
-        return payments.stream().map(dtoMapper::fromPayment).collect(Collectors.toList());
+    public List<Payment> filterPayments(Long loan_id) {//for retrieval from customer view
+        Date start_date=new Date(0);
+        Date end_date=new Date();
+        List<Payment> payments = paymentRepository.findByAttributes(0.0, Double.MAX_VALUE, start_date, end_date, loan_id);
+        return payments;
     }//////////////////////////done
 
-    public PaymentDTO doPayment(PaymentDTO payDTO) {
-        Payment payment=dtoMapper.fromPaymentDTO(payDTO);
-        return dtoMapper.fromPayment(paymentRepository.save(payment));
+    
+    public Payment updatePaymentStatus(Long pay_id,String pay_status) {
+        Optional<Payment> payment = paymentRepository.findById(pay_id);
+        if (payment.isPresent()) {
+            Payment pay = payment.get();
+            pay.setPay_status(pay_status);
+            return paymentRepository.save(pay);
+        } else {
+            return null;
+            //throw new EntityNotFoundException("Loan not found for id: " + id);
+        }
+        
+    }
+
+    public Payment doPayment(Payment payment) {
+        
+        return paymentRepository.save(payment);
     }//////////////////////////done
 
     public void deletePayment(Long pay_id) {

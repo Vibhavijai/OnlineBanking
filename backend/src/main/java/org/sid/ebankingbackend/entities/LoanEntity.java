@@ -20,16 +20,18 @@ public class LoanEntity {
 
     @ManyToOne
     private Customer customer;
-    private BigDecimal loan_amt;
+    @ManyToOne
+    private BankAccount account;
+    private Double loan_amt;
     private Date startDate;
     private Date endDate;
     @ManyToOne
     private LoanPlan loanPlan;
     @ManyToOne
     private LoanType loanType;
-    private BigDecimal pending_amt;
-    @Enumerated(EnumType.STRING)
-    private LoanStatus status;
+    private Double pending_amt;
+    
+    private String status;
 
     // getters and setters
 }

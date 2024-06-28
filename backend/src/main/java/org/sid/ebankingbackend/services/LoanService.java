@@ -1,19 +1,16 @@
 package org.sid.ebankingbackend.services;
 import org.sid.ebankingbackend.repositories.LoanRepository;
-import org.sid.ebankingbackend.entities.Customer;
+import org.sid.ebankingbackend.repositories.LoanTypeRepository;
+import org.sid.ebankingbackend.repositories.LoanPlanRepository;
+
+import org.sid.ebankingbackend.entities.LoanType;
 import org.sid.ebankingbackend.entities.LoanEntity;
-import org.sid.ebankingbackend.entities.Payment;
-import org.sid.ebankingbackend.mappers.BankAccountMapperImpl;
+import org.sid.ebankingbackend.entities.LoanPlan;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-import org.sid.ebankingbackend.dtos.LoanEntityDTO;
-import org.sid.ebankingbackend.dtos.PaymentDTO;
-import org.sid.ebankingbackend.enums.LoanStatus;
-
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -22,46 +19,70 @@ public class LoanService {
 
     @Autowired
     private LoanRepository loanRepository;
-    private BankAccountMapperImpl dtoMapper;
+    @Autowired
+    private LoanTypeRepository loanTypeRepository;
+    @Autowired
+    private LoanPlanRepository loanPlanRepository;
 
-    public List<LoanEntityDTO> getAllLoans() {
+
+    public List<LoanEntity> getAllLoans() {
         List<LoanEntity> loans = loanRepository.findAll();
-        return loans.stream()
-                .map(dtoMapper::fromLoanEntity)
-                .collect(Collectors.toList());
-    }//////////////////////////done
-    /*
-    public List<LoanEntityDTO> filterLoans(Long loan_id,Long plan_id, Long type_id, LoanStatus status, Double min_amount, Double max_amount) {
-        List<LoanEntity> loans = loanRepository.findByAttributes(loan_id,plan_id,type_id,status,min_amount, max_amount);
-        return loans.stream().map(dtoMapper::fromLoanEntity).collect(Collectors.toList());
+        return loans;
     }//////////////////////////done
 
-    public LoanEntityDTO updateLoan(Long id, LoanEntityDTO loanDTO) {
+    public List<LoanType> getAllLoanTypes() {
+        List<LoanType> loantypes = loanTypeRepository.findAll();
+        return loantypes;
+    }//////////////////////////done
+    public List<LoanPlan> getAllLoanPlans() {
+        List<LoanPlan> loanplans = loanPlanRepository.findAll();
+        return loanplans;
+    }//////////////////////////done
+
+    public LoanType setNewLoanType(LoanType loanType) {
+        LoanType loantype = loanTypeRepository.save(loanType);
+        return loantype;
+    }//////////////////////////done
+    public LoanPlan setNewLoanPlan(LoanPlan loanPlan) {
+        LoanPlan loanplan = loanPlanRepository.save(loanPlan);
+        return loanplan;
+    }//////////////////////////done
+    
+    public List<LoanEntity> filterLoans(Long loan_id,Long plan_id, Long type_id, String status, Integer min_amount, Integer max_amount) {
+        List<LoanEntity> loans = loanRepository.findByAttributes(loan_id,plan_id,type_id,status,min_amount, max_amount);
+        return loans;
+    }//////////////////////////done
+
+    
+
+    public LoanEntity updateLoan(Long id, Double pending_amt, String status) {
         Optional<LoanEntity> optionalLoanEntity = loanRepository.findById(id);
         if (optionalLoanEntity.isPresent()) {
             LoanEntity loanEntity = optionalLoanEntity.get();
            // loanEntity.setLoanType(dtoMapper.fromLoanTypeDTO(loanDTO.getLoanTypeDTO()));
-            loanEntity.setPending_amt(loanDTO.getPending_amt());
-            loanEntity.setStatus(loanDTO.getStatus());
+            loanEntity.setPending_amt(pending_amt);
+            loanEntity.setStatus(status);
             // Update other fields as necessary
-            return dtoMapper.fromLoanEntity(loanRepository.save(loanEntity));
+            return loanRepository.save(loanEntity);
         } else {
             throw new EntityNotFoundException("Loan not found for id: " + id);
         }
     }///////////////////////////done
-
-    public List<LoanEntityDTO> getLoanbyCustomerId(Long customer_id) {
+ 
+    public List<LoanEntity> getLoanbyCustomerId(Long customer_id) {
         List<LoanEntity> loans = loanRepository.findByCustomerId(customer_id);
-        return loans.stream().map(dtoMapper::fromLoanEntity).collect(Collectors.toList());
+        return loans;
     }//////////////////////////done
 
-    public LoanEntityDTO saveLoan(LoanEntityDTO loanDTO) {
-        LoanEntity loan=dtoMapper.fromLoanEntityDTO(loanDTO);
-        return dtoMapper.fromLoanEntity(loanRepository.save(loan));
+    public LoanEntity saveLoan(LoanEntity loanDTO) {
+        
+        return loanRepository.save(loanDTO);
     }//////////////////////////done
 
     public void deleteLoan(Long id) {
+        
         loanRepository.deleteById(id);
+        
     }//////////////////////////done
-    */
+    
 }

@@ -22,6 +22,7 @@ public class Payment {
     private BigDecimal paid_amt;
     private BigDecimal overdue_amt;//penalty amount for overdue;
     private Date pay_date;
+    private String pay_status;
 
     // getters and setters
 }
