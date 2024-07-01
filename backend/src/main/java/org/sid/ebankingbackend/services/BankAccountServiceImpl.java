@@ -12,6 +12,7 @@ import org.sid.ebankingbackend.enums.OperationType;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
+import org.sid.ebankingbackend.exceptions.InvalidCredentialsException;
 import org.sid.ebankingbackend.mappers.BankAccountMapperImpl;
 import org.sid.ebankingbackend.repositories.AccountOperationRepository;
 import org.sid.ebankingbackend.repositories.BankAccountRepository;
@@ -42,10 +43,18 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     
     @Override
-    public Integer loginAuth() {
-        log.info("Login for customer");
-        
-        return (ResponseEntity.ok("login successful")).getStatusCodeValue();
+    public CustomerDTO loginAuth(long customerId, String pswd)throws InvalidCredentialsException {
+        //log.info("Login for customer");
+        try{
+        CustomerDTO customerDTO=this.getCustomer(customerId);
+        if (customerDTO.getPswd().equals(pswd)){
+            return customerDTO;
+        }else{
+             throw new InvalidCredentialsException("Invalid Password !!! TRY AGAIN");
+        }
+    }catch(CustomerNotFoundException e){
+        throw new InvalidCredentialsException("Invalid Customer Id !!! TRY AGAIN");
+    }
     }
     
     @Override

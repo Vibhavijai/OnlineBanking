@@ -18,5 +18,6 @@ public class CustomerDTO {
     private long balance;
     private String type;
     private double initialBalance;
+    private String pswd;
 
 }

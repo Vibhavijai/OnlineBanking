@@ -18,6 +18,7 @@ public class Customer {
     private String acc;
     private long balance;
     private String type;
+    private String pswd;
     @OneToMany(mappedBy = "customer")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BankAccount> bankAccounts;           

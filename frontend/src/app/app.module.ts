@@ -17,9 +17,8 @@ import { CategoryComponent } from './category/category.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
-import { LoanadminComponent } from './loanadmin/loanadmin.component';
 import { AdminheaderComponent } from './adminheader/adminheader.component';
+import { AdminpageComponent } from './adminpage/adminpage.component';
 
 
 
@@ -35,9 +34,8 @@ import { AdminheaderComponent } from './adminheader/adminheader.component';
     CategoryComponent,
     LoginComponent,
     FooterComponent,
-    ProfileComponent,
-    LoanadminComponent,
-    AdminheaderComponent
+    AdminheaderComponent,
+    AdminpageComponent
     
   ],
   imports: [

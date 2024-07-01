@@ -14,23 +14,15 @@
           <a class="nav-link active" aria-current="page" href="/home">Home</a>
         </li>
         <li class="nav-item">
+        <a class="nav-link" *ngIf="isLoggedIn; else loginButton" (click)="logout()">Logout</a>
+        <ng-template #loginButton>
+          <a class="nav-link" (click)="login()">Login to My Account</a>
+        </ng-template>
+        </li>
+        <!--li class="nav-item">
           <a class="nav-link"   href="/login">Login to My Account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/accounts">Accounts</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Customers
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/customers">Search customers</a></li>
-            <li><a class="dropdown-item" routerLink="/new-customer">New customer</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/category">Categorize your expenditure</a>
-        </li>
+        </li-->
+        
       </ul>
 
     </div>

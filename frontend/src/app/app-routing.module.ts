@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {CustomersComponent} from "./customers/customers.component";
-import {ProfileComponent} from "./profile/profile.component";
 import {AccountsComponent} from "./accounts/accounts.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
@@ -10,7 +9,7 @@ import {CustomerAccountsComponent} from "./customer-accounts/customer-accounts.c
 import { CustomerService } from './services/customer.service';
 import { AccountsService } from './services/accounts.service';
 import {CategoryComponent} from "./category/category.component";
-
+import {AdminpageComponent} from "./adminpage/adminpage.component";
 const routes: Routes = [
   { path :"customers", component : CustomersComponent},
   { path :"accounts", component : AccountsComponent},
@@ -20,7 +19,7 @@ const routes: Routes = [
   { path :"category", component : CategoryComponent},
   { path :"", redirectTo : "home", pathMatch: "full"},
   { path :"login", component : LoginComponent},
-  { path :"profile", component : ProfileComponent}
+  { path :"adminpage", component : AdminpageComponent}
 ];
 
 @NgModule({

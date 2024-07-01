@@ -24,6 +24,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
             @Param("end_date") Date end_date,
             @Param("loan_id") Long loan_id);
 
-    @Query("SELECT p FROM Payment p JOIN p.loan l WHERE l.customer.id = :customer_id")
-    List<Payment> findByCustomerId(@Param("customer_id") Long customer_id);
+   /*  @Query("SELECT p FROM Payment p JOIN p.loan l WHERE l.customer.id = :customer_id")
+    List<Payment> findByCustomerId(@Param("customer_id") Long customer_id);*/
 }

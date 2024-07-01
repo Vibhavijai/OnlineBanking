@@ -1,37 +1,71 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#"> ADMIN - MyBank </a>
-        <button class="navbar-toggler" type="button"
+    <div class="container" >
+      
+        <a class="navbar-brand" href="#"> {{username}} </a>
+      
+        <div class="navbar-toggler" style="background-color:blue"
           data-toggle="collapse" data-target="#nav-bar">
             <span class="sr-only"> Switch Menu </span>
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> Loan Details </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> Loan Schedule </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> clients </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> products </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-           href="#" data-toggle="dropdown">
-                        My Account
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"> To Edit </a>
-                        <a class="dropdown-item" href="#"> Logout </a>
-                    </div>
-                </li>
-            </ul>
         </div>
+        <div align="right">
+        <div class="collapse navbar-collapse" id="nav-bar" >
+          <!--userbar-->
+          <ng-template #userbar>
+          <ul class="navbar-nav ml-auto" >
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  My Loans
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" routerLink="#">Apply New Loan</a></li>
+                  <li><a class="dropdown-item" routerLink="#">Loan Detail View</a></li>
+                </ul>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/accounts">My Accounts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/category">My Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/category">Expenditure</a>
+              </li>
+        </ul>
+      </ng-template>
+      
+        <!--adminbar-->
+          
+            <ul class="navbar-nav ml-auto" *ngIf="isAdmin; else userbar">
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Manage Loans
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" routerLink="/loans">Loan Details</a></li>
+                      <li><a class="dropdown-item" routerLink="/loanplans">Loan Plans</a></li>
+                    </ul>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/accounts">Accounts</a>
+                  </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Customers
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" routerLink="/customers">Search customers</a></li>
+                      <li><a class="dropdown-item" routerLink="/new-customer">New customer</a></li>
+                    </ul>
+                  </li>
+                  <!--li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/category">Expenditure</a>
+                  </li-->
+            </ul>
+         
+        </div>
+    </div>
     </div>
 </nav>
 

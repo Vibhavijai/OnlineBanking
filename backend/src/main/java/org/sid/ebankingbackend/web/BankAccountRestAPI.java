@@ -4,12 +4,20 @@ import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
+import org.sid.ebankingbackend.exceptions.InvalidCredentialsException;
 import org.sid.ebankingbackend.services.BankAccountService;
 //import org.sid.ebankingbackend.services.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import springfox.documentation.spring.web.json.Json;
+
+import java.util.HashMap;
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -23,9 +31,11 @@ public class BankAccountRestAPI {
         this.bankAccountService = bankAccountService;
     }
 
-    @PostMapping("/login")
-    public Integer loginToMyAccount(@RequestBody String entity) {
-        return bankAccountService.loginAuth();
+    @PutMapping("/login")
+    public CustomerDTO loginToMyAccount(@RequestBody CustomerDTO customer) throws InvalidCredentialsException{
+      
+        return bankAccountService.loginAuth(customer.getId(),customer.getPswd());
+        
     }
 
     @GetMapping("/accounts")

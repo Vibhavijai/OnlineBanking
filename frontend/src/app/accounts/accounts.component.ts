@@ -4,6 +4,7 @@ import { AccountsService } from '../services/accounts.service';
 import { CustomerService } from '../services/customer.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../model/account.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-accounts',
@@ -18,13 +19,16 @@ export class AccountsComponent implements OnInit {
   operationFromGroup!: FormGroup;
   errorMessage!: string;
   accountFound: boolean = false;
-
-  constructor(private fb: FormBuilder, private accountService: AccountsService, private customerService: CustomerService) { }
+  isAdmin:boolean=false;
+  constructor(private authService:AuthService,private fb: FormBuilder, private accountService: AccountsService, private customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.accountFormGroup = this.fb.group({
       accountId: this.fb.control('')
     });
+
+    this.isAdmin=this.authService.isanAdmin();
+    
     this.operationFromGroup = this.fb.group({
       operationType: this.fb.control(null),
       amount: this.fb.control(0),

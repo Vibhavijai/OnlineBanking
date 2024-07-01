@@ -15,6 +15,7 @@ import org.sid.ebankingbackend.repositories.BankAccountRepository;
 import org.sid.ebankingbackend.repositories.CustomerRepository;
 import org.sid.ebankingbackend.services.BankAccountService;
 import org.sid.ebankingbackend.services.LoanService;
+import org.sid.ebankingbackend.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +36,8 @@ public class EbankingBackendApplication {
     private BankAccountService bankAccountService;
     @Autowired
     private LoanService loanService;
+    @Autowired
+    private PaymentService paymentService;
 
     public static void main(String[] args) {
         SpringApplication.run(EbankingBackendApplication.class, args);

@@ -4,6 +4,7 @@ import org.sid.ebankingbackend.dtos.*;
 import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
+import org.sid.ebankingbackend.exceptions.InvalidCredentialsException;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -27,5 +28,5 @@ public interface BankAccountService {
     List<CustomerDTO> searchCustomers(String keyword);
     CustomerDTO saveCustomerWithAccount(CustomerDTO customerDTO) throws CustomerNotFoundException;
 
-   Integer loginAuth();
+   CustomerDTO loginAuth(long customerId, String pswd) throws InvalidCredentialsException;
 }
