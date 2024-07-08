@@ -24,7 +24,7 @@ public class PaymentController {
     private LoanService loanService;
 
     @GetMapping("/pays/all")
-    public List<PaymentDTO> getAllPayments() {
+    public List<Payment> getAllPayments() {
         return paymentService.getAllPayments();
     }//////////////////////////done
 

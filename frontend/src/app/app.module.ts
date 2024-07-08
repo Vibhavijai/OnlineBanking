@@ -17,8 +17,11 @@ import { CategoryComponent } from './category/category.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
-import { AdminheaderComponent } from './adminheader/adminheader.component';
+import { HeaderComponent } from './header/header.component'
 import { AdminpageComponent } from './adminpage/adminpage.component';
+import { AuthService } from './services/auth.service';
+import { AdminaccountsComponent } from './adminaccounts/adminaccounts.component';
+import { LoandetailsComponent } from './loandetails/loandetails.component';
 
 
 
@@ -34,8 +37,10 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
     CategoryComponent,
     LoginComponent,
     FooterComponent,
-    AdminheaderComponent,
-    AdminpageComponent
+    HeaderComponent,
+    AdminpageComponent,
+    AdminaccountsComponent,
+    LoandetailsComponent
     
   ],
   imports: [
@@ -47,6 +52,7 @@ import { AdminpageComponent } from './adminpage/adminpage.component';
   ],
   providers: [
     CustomerService,
+    AuthService,
     AccountsService  // Ensure AccountsService is provided here
   ],
   bootstrap: [AppComponent]

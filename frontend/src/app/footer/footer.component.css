@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Public+Sans&display=swap");
-body {    position: fixed;
+body {    position: relative;
   font-family: "Public Sans", sans-serif !important;
   font-size: 18px !important;
   color: #021652 !important;

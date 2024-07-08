@@ -4,7 +4,6 @@ import { AccountsService } from '../services/accounts.service';
 import { CustomerService } from '../services/customer.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../model/account.model';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-accounts',
@@ -12,23 +11,21 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  accountFormGroup!: FormGroup;
+  //accountFormGroup!: FormGroup;
   currentPage: number = 0;
   pageSize: number = 5;
   accountObservable!: Observable<AccountDetails>;
   operationFromGroup!: FormGroup;
   errorMessage!: string;
   accountFound: boolean = false;
-  isAdmin:boolean=false;
-  constructor(private authService:AuthService,private fb: FormBuilder, private accountService: AccountsService, private customerService: CustomerService) { }
+  userdata!:any;
+  profileViewed:boolean=false;
+  constructor(private fb: FormBuilder, private accountService: AccountsService, private customerService: CustomerService) { }
 
   ngOnInit(): void {
-    this.accountFormGroup = this.fb.group({
-      accountId: this.fb.control('')
-    });
-
-    this.isAdmin=this.authService.isanAdmin();
-    
+    this.userdata=JSON.parse(sessionStorage.getItem("userData")+"");
+    this.profileViewed=this.accountService.profileViewed;
+    alert(this.profileViewed);
     this.operationFromGroup = this.fb.group({
       operationType: this.fb.control(null),
       amount: this.fb.control(0),
@@ -36,7 +33,6 @@ export class AccountsComponent implements OnInit {
       accountDestination: this.fb.control(null),
       category: this.fb.control({value: null, disabled: true}) // Initially disabled
     });
-
     // Listen to changes in operationType to enable/disable category
     this.operationFromGroup.get('operationType')?.valueChanges.subscribe(operationType => {
       if (operationType === 'CREDIT') {
@@ -45,10 +41,15 @@ export class AccountsComponent implements OnInit {
         this.operationFromGroup.get('category')?.enable();
       }
     });
+    if(!this.profileViewed){
+    this.handleSearchAccount();
+    }
   }
 
+
+
   handleSearchAccount() {
-    let accountId: string = this.accountFormGroup.value.accountId;
+    let accountId: string = this.userdata.acc;
     this.accountObservable = this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
       catchError(err => {
         this.errorMessage = err.message;
@@ -74,7 +75,7 @@ export class AccountsComponent implements OnInit {
   }
 
   handleAccountOperation() {
-    let accountId: string = this.accountFormGroup.value.accountId;
+    let accountId: string =  this.userdata.acc;
     let operationType = this.operationFromGroup.value.operationType;
     let amount: number = this.operationFromGroup.value.amount;
     let description: string = this.operationFromGroup.value.description;

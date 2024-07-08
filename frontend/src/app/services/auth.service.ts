@@ -14,7 +14,8 @@ import { Customer } from '../model/customer.model';
 export class AuthService {
   private tokenKey = 'authToken';
   customer:Customer=new Customer(0,"","","");
-  private usernameKey = 'username';
+  
+ 
   isAdmin:boolean=false;
 
   constructor(private http: HttpClient) {}
@@ -27,47 +28,41 @@ export class AuthService {
     this.customer.pswd=pswd;
     return this.http.put<any>(`${environment.backendHost}/login`, this.customer).pipe(
       tap((response) => {
-        this.setSession(response.token, response.name);
+        //this.setSession(response.token, response.name);
+        sessionStorage.setItem("tokenKey",response.tokenKey);
+        sessionStorage.setItem("userData",JSON.stringify(response ));
         this.loggedIn.next(true);
         if(response.name=="Admin"){
           this.isAdmin=true;
         }else{
           this.isAdmin=false;
         }
+        sessionStorage.setItem("isAdmin",this.isAdmin.toString());
       }),
       catchError(this.handleError)
     );
   }
 
-  private setSession(token: string, username: string): void {
-    localStorage.setItem(this.tokenKey, token);
-    localStorage.setItem(this.usernameKey, username);
-  }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.usernameKey);
+    sessionStorage.removeItem('tokenKey');
+    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem('isAdmin');
     this.loggedIn.next(false);
   }
-
+/*
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return sessionStorage.getItem(this.tokenKey);
   }
-
-  getUsername(): string | null {
-    return localStorage.getItem(this.usernameKey);
-  }
+*/
 
   isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-  isanAdmin(): boolean {
-    return this.isAdmin;
-  }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+    return !!sessionStorage.getItem(this.tokenKey);
   }
 
 

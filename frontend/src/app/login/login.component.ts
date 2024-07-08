@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(data.cust_id,data.pswd).subscribe({
     next: (response:Customer) => {
       //const username = this.authService.getUsername();
-          alert('Success login!!!');
+          alert('Login Successful!!!');
           
             this.router.navigate(['/adminpage']);
           

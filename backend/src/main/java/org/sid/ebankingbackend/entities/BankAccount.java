@@ -3,7 +3,7 @@ package org.sid.ebankingbackend.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.sid.ebankingbackend.enums.AccountStatus;
+//import org.sid.ebankingbackend.enums.AccountStatus;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE",length = 4)
 @Data @NoArgsConstructor @AllArgsConstructor
-public abstract class BankAccount {
+public class BankAccount {
     @Id
     private String id;
     private double balance;

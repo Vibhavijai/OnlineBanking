@@ -3,7 +3,7 @@ package org.sid.ebankingbackend.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 import org.sid.ebankingbackend.EbankingBackendApplication;
 import org.sid.ebankingbackend.dtos.*;
@@ -19,20 +19,22 @@ import org.sid.ebankingbackend.repositories.BankAccountRepository;
 import org.sid.ebankingbackend.repositories.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.sid.ebankingbackend.entities.BankAccount;
+
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+//import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @AllArgsConstructor
-@Slf4j
+
 public class BankAccountServiceImpl implements BankAccountService {
     private CustomerRepository customerRepository;
     private BankAccountRepository bankAccountRepository;
@@ -40,11 +42,15 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountMapperImpl dtoMapper;
 
     private static final Logger log = LoggerFactory.getLogger(EbankingBackendApplication.class);
-
-    
+    @Override
+    public List<BankAccount> getAccountsforCustomer(Long customerid){
+        List<BankAccount> accounts = bankAccountRepository.getAccountByCustomerId(customerid);
+        log.info(accounts.toString());
+        return accounts;
+    }
     @Override
     public CustomerDTO loginAuth(long customerId, String pswd)throws InvalidCredentialsException {
-        //log.info("Login for customer");
+        
         try{
         CustomerDTO customerDTO=this.getCustomer(customerId);
         if (customerDTO.getPswd().equals(pswd)){
@@ -227,5 +233,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         return savedCustomer;
     }
+
+    
 
 }

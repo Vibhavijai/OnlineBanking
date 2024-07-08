@@ -6,17 +6,15 @@ import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
 import org.sid.ebankingbackend.exceptions.InvalidCredentialsException;
 import org.sid.ebankingbackend.services.BankAccountService;
-//import org.sid.ebankingbackend.services.CustomerService;
 import org.springframework.http.ResponseEntity;
+//import org.sid.ebankingbackend.services.CustomerService;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.sid.ebankingbackend.entities.BankAccount;
+//import springfox.documentation.spring.web.json.Json;
 
-import springfox.documentation.spring.web.json.Json;
-
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -42,6 +40,13 @@ public class BankAccountRestAPI {
     public List<BankAccountDTO> listAccounts() {
         return bankAccountService.bankAccountList();
     }
+
+    @GetMapping("/accounts/{customerid}")
+    public List<BankAccount> getAccountsforCustomer(@PathVariable Long customerid) {
+        
+        return bankAccountService.getAccountsforCustomer(customerid);
+    }
+
 
     @GetMapping("/accounts/{accountId}/operations")
     public List<AccountOperationDTO> getHistory(@PathVariable String accountId) {
@@ -81,4 +86,6 @@ public class BankAccountRestAPI {
     public CustomerDTO saveCustomerWithAccount(@RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
         return bankAccountService.saveCustomerWithAccount(customerDTO);
     }
+
+    
 }

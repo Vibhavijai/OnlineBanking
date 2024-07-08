@@ -1,16 +1,16 @@
 package org.sid.ebankingbackend.repositories;
-import java.util.Date;
+/*import java.util.Date;
 import java.util.List;
 
 import org.sid.ebankingbackend.entities.Customer;
-import org.sid.ebankingbackend.entities.LoanType;
 import org.sid.ebankingbackend.entities.Payment;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
+import org.sid.ebankingbackend.enums.LoanStatus;*/
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.sid.ebankingbackend.enums.LoanStatus;
+import org.sid.ebankingbackend.entities.LoanType;
 
 @Repository
 public interface LoanTypeRepository extends JpaRepository<LoanType, Long> {

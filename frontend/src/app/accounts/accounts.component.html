@@ -1,13 +1,38 @@
-<div class="container mt-2" style="height: 80vh !important;">
-  <app-adminheader></app-adminheader>
-
-  <div class="container" style="padding:10px;">
+<div class="container mt-2"style="height: 80vh !important;">
+  <app-header></app-header>
   <div class="row">
-    <div class="col col-md-6" >
-      <div class="card" >
-        <div class="card-header">Accounts</div>
+    <div class="col col-md-6">
+      <div class="card">
+        <div class="card-header">My Account</div>
         <div class="card-body">
-          <form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
+          <div *ngIf="profileViewed; else accountsView">
+          <ng-container *ngIf="userdata">
+            <h6 class="loan-detail-h6">----Profile Details----------------------------------------------------------------------------</h6>
+            <div class="loan-details-container">
+              <div class="mb-2 loan-details">
+                <label>Customer ID :</label>
+                <label><strong>{{userdata.id}}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label> Name :</label>
+                <label><strong>{{userdata.name }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Email Id :</label>
+                <label><strong>{{userdata.email }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Account No :</label>
+                <label><strong>{{userdata.acc }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Balance :</label>
+                <label><strong>{{userdata.balance }}</strong></label>
+              </div>
+          </div>
+          </ng-container>
+        </div>
+          <!--form [formGroup]="accountFormGroup" (ngSubmit)="handleSearchAccount()">
             <div class="input-group">
               <label class="input-group-text">Account Id :</label>
               <input type="text" formControlName="accountId" class="form-control">
@@ -19,7 +44,7 @@
             <div class="mt-2">
               <a [routerLink]="['/new-customer']">New Customer? Register here.</a>
             </div>
-          </form>
+          </form-->
           <ng-template #errorTemplate>
             <ng-container *ngIf="errorMessage; else loading">
               <div class="text-danger">{{errorMessage}}</div>
@@ -28,6 +53,7 @@
               Loading ...
             </ng-template>
           </ng-template>
+          <ng-template #accountsView>
           <ng-container *ngIf="accountObservable | async as accountDetails">
             <div class="mb-2">
               <label>Account ID :</label>
@@ -37,6 +63,8 @@
               <label>Balance :</label>
               <label><strong>{{accountDetails.balance | number : '1.2-2'}}</strong></label>
             </div>
+            <h6 class="loan-detail-h6">----Transactions--------------------------------------------------</h6>
+
             <table class="table">
               <thead>
               <tr>
@@ -61,6 +89,7 @@
               </li>
             </ul>
           </ng-container>
+        </ng-template>
         </div>
       </div>
     </div>
@@ -120,5 +149,4 @@
       </div>
     </div>
   </div>
-</div>
 </div>

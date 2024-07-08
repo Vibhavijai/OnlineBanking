@@ -1,5 +1,5 @@
 <div class="container" >
-  <app-adminheader></app-adminheader>
+  <app-header></app-header>
   <div class="card col-md-6 offset-3 mt-2">
     <div class="card-header">New Customer</div>
     <div class="card-body">
@@ -22,6 +22,26 @@
                 && newCustomerFormGroup.controls['email'].errors
                 && newCustomerFormGroup.controls['email'].errors!['email']">
             Email is not valid
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password:</label>
+          <input type="password" formControlName="pswd" class="form-control">
+          <span class="text-danger"
+                *ngIf="newCustomerFormGroup.controls['pswd'].touched
+                && newCustomerFormGroup.controls['pswd'].errors
+                && newCustomerFormGroup.controls['pswd'].errors!['passwordStrength']">
+            Password must include at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 8 characters long.
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Password:</label>
+          <input type="password" formControlName="confirmPassword" class="form-control">
+          <span class="text-danger"
+                *ngIf="newCustomerFormGroup.controls['confirmPassword'].touched
+                && newCustomerFormGroup.errors
+                && newCustomerFormGroup.errors['passwordMismatch']">
+            Passwords do not match
           </span>
         </div>
         <div class="mb-3">

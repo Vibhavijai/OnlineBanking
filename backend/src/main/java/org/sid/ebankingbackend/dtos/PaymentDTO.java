@@ -1,18 +1,17 @@
 package org.sid.ebankingbackend.dtos;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
+/*import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.sid.ebankingbackend.entities.BankAccount;
 import org.sid.ebankingbackend.dtos.LoanEntityDTO;
 import org.sid.ebankingbackend.enums.OperationType;
-
-import javax.persistence.*;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import javax.persistence.*;
+*/
+import java.math.BigDecimal;
+
 import java.util.Date;
 
 @Data

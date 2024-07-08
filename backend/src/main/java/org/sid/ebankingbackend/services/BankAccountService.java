@@ -5,7 +5,8 @@ import org.sid.ebankingbackend.exceptions.BalanceNotSufficientException;
 import org.sid.ebankingbackend.exceptions.BankAccountNotFoundException;
 import org.sid.ebankingbackend.exceptions.CustomerNotFoundException;
 import org.sid.ebankingbackend.exceptions.InvalidCredentialsException;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
+import org.sid.ebankingbackend.entities.BankAccount;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface BankAccountService {
     void transfer(String accountIdSource, String accountIdDestination, double amount, String description, String category) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
     List<BankAccountDTO> bankAccountList();
+    List<BankAccount> getAccountsforCustomer(Long customerid);
+   
     CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
     CustomerDTO updateCustomer(CustomerDTO customerDTO);
     void deleteCustomer(Long customerId);

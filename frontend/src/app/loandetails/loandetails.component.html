@@ -1,0 +1,186 @@
+
+<div class="container mt-1">
+    <app-header></app-header>
+    
+
+        <div class="card">
+          <div class="card-header">Loans
+            <form [formGroup]="loanFormGroup" (ngSubmit)="onSubmit()">
+                <div class="col col-md-13" >
+              <div class="input-group" >
+                <label class="input-group-text">Loan Id :</label>
+                <input type="number" formControlName="loanId" class="form-control">
+                <label class="input-group-text">Loan Plan :</label>
+                <input type="number" formControlName="planId" class="form-control">
+                <label class="input-group-text">Loan Type :</label>
+                <input type="text" formControlName="typeId" class="form-control">
+                </div>
+            </div><br>
+         
+                <div class="input-group">
+                <label class="input-group-text"> Status :</label>
+                <input type="text" formControlName="status" class="form-control">
+                <label class="input-group-text">Min amount :</label>
+                <input type="number" formControlName="minAmount" class="form-control" value="0">
+                <label class="input-group-text">Max Amount :</label>
+                <input type="number" formControlName="maxAmount" class="form-control" value="100000000">
+                <button class="btn btn-info">
+                  <i class="bi bi-search"></i>
+                  Filter
+                </button>
+              </div>
+              <!--div class="mt-2">
+                <a [routerLink]="['/new-customer']">New Customer? Register here.</a>
+              </div-->
+            </form>
+
+          </div>
+          <div class="card-body">
+            <div class="row">
+            <div class="col col-md-5 vertical-line">
+              <table class="table" >
+                <thead>
+                <tr>
+                  <th>Loan Id</th><th>Amount</th><th>Pending Amt</th><th >Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let c of loans | async">
+                  <td>{{c.loan_id}}</td>
+                  <td>{{c.loan_amt}}</td>
+                  <td>{{c.pending_amt}}</td>
+                  <td>{{c.status}}</td>
+                  <td>
+                    <button (click)="handleGetLoanById(c.loan_id,c.loan_amt)" class="btn btn-success">
+                      Details
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              </div>
+      
+           
+              <div class="col col-md-7">
+            <ng-template #errorTemplate>
+              <ng-container *ngIf="errorMessage; else loading">
+                <div class="text-danger">{{errorMessage}}</div>
+              </ng-container>
+              <ng-template #loading>
+                Loading ...
+              </ng-template>
+            </ng-template>
+
+            <ng-container *ngIf="loanObservable | async as loanDetails">
+              <h6 class="loan-detail-h6">----Loan Details----------------------------------------------------------------------------</h6>
+              <div class="loan-details-container">
+              <div class="mb-2 loan-details">
+                <label>Loan ID :</label>
+                <label><strong>{{loanDetails.loan_id}}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Loan amount :</label>
+                <label><strong>{{loanDetails.loan_amt | number : '1.2-2'}}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Pending Amt :</label>
+                <label><strong>{{loanDetails.pending_amt | number : '1.2-2'}}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Status :</label>
+                <label><strong>{{loanDetails.status }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Start Date :</label>
+                <label><strong>{{loanDetails.startDate | date : 'dd-MM-yyyy' }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Final Due Date :</label>
+                <label><strong>{{loanDetails.endDate | date : 'dd-MM-yyyy'}}</strong></label>
+              </div>
+            </div>
+
+            <h6 class="loan-detail-h6">----Borrower Details-----------------------------------------------------------------------</h6>
+              <div class="loan-details-container">
+              <div class="mb-2 loan-details">
+                <label>Borrower ID :</label>
+                <label><strong>{{loanDetails.customer.id}}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label> Name :</label>
+                <label><strong>{{loanDetails.customer.name }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Email Id :</label>
+                <label><strong>{{loanDetails.customer.email }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Account No :</label>
+                <label><strong>{{loanDetails.customer.acc }}</strong></label>
+              </div>
+              <div class="mb-2 loan-details">
+                <label>Balance :</label>
+                <label><strong>{{loanDetails.customer.balance }}</strong></label>
+              </div>
+            </div>
+
+
+            <h6 class="loan-detail-h6">----Payments-------------------------------------------------------------------------------</h6>
+
+            <table class="table" >
+              <thead>
+              <tr>
+                <th>Payment Id</th><th>Loan Id</th><th >Amount Paid</th><th >Overdue Penalty</th><th >Date</th><th >Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let p of pays | async">
+                <td>{{p.pay_id}}</td>
+                <td>{{p.loan.loan_id}}</td>
+                <td>{{p.paid_amt}}</td>
+                <td>{{p.overdue_amt}}</td>
+                <td>{{p.pay_date}}</td>
+                <td>{{p.status}}</td>
+                <td>
+                  <button (click)="hidePayments()" *ngIf="payViewed; else showButton" class="btn btn-success">Hide</button>
+                  <ng-template #showButton>
+                  <button (click)="showPayments()" class="btn btn-success">Details</button>
+                  </ng-template>
+                </td>
+              </tr>
+              <ng-container *ngIf="payViewed">
+                Payment Details to be displayed here....
+              </ng-container>
+              </tbody>
+            </table>
+              <!--
+              <table class="table" >
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let op of accountDetails.accountOperationDTOS">
+                  <td>{{op.id}}</td>
+                  <td>{{op.operationDate | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
+                  <td>{{op.type}}</td>
+                  <td class="text-end">{{op.amount | number : '1.2-2'}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <ul class="nav nav-pills">
+                <li *ngFor="let item of [].constructor(accountDetails.totalPages); let page=index">
+                  <a [ngClass]="page==currentPage?'btn-info':'btn-outline-info'" (click)="gotoPage(page)" class="btn ms-1 mt-1">{{page}}</a>
+                </li>
+              </ul>-->
+            </ng-container>
+            </div>
+            </div>
+          </div>
+        </div>
+     
+  </div>

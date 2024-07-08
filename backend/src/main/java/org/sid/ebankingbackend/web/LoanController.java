@@ -4,14 +4,14 @@ import org.sid.ebankingbackend.entities.LoanEntity;
 import org.sid.ebankingbackend.entities.LoanPlan;
 import org.sid.ebankingbackend.entities.LoanType;
 
-import org.sid.ebankingbackend.enums.LoanStatus;
-import org.sid.ebankingbackend.services.BankAccountService;
+//import org.sid.ebankingbackend.enums.LoanStatus;
+//import org.sid.ebankingbackend.services.BankAccountService;
 import org.sid.ebankingbackend.services.LoanService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.sid.ebankingbackend.dtos.LoanEntityDTO;
+//import org.sid.ebankingbackend.dtos.LoanEntityDTO;
 import java.util.List;
 
 @RestController
@@ -47,7 +47,7 @@ public class LoanController {
     }//////////////////////////done
     
      @GetMapping("/loans/filterloans")
-    public ResponseEntity<List<LoanEntity>> searchLoan(
+    public List<LoanEntity> searchLoan(
         @RequestParam(required = false) Long loan_id,
         @RequestParam(required = false) Long plan_id,
         @RequestParam(required = false) Long type_id,
@@ -56,11 +56,7 @@ public class LoanController {
         @RequestParam(required = true) Integer max_amount
         ) {
          List<LoanEntity> loanDTO = loanService.filterLoans(loan_id,plan_id,type_id,status,min_amount, max_amount);
-        if (loanDTO != null) {
-            return ResponseEntity.ok(loanDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return loanDTO;
     }
 
      @GetMapping("/loans/{customer_id}")

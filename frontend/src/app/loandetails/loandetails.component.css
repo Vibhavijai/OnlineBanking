@@ -1,0 +1,24 @@
+div {
+    font-size: 12px !important; /* You can adjust this value */
+  }
+
+  .loan-details-container {
+    display: flex;
+    gap: 20px; /* Space between loan details */
+  }
+  .loan-detail {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 13.333px); /* Adjust width and subtract the gap to fit 3 in a row */
+  }
+  .loan-detail-h6 {
+    margin-top: 0;
+  }
+  .vertical-line {
+    border-right: 2px solid black;
+    height: 100px; /* Adjust the height as needed */
+    
+}

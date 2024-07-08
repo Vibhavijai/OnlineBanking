@@ -1,6 +1,6 @@
 package org.sid.ebankingbackend;
 
-import org.sid.ebankingbackend.dtos.BankAccountDTO;
+/*import org.sid.ebankingbackend.dtos.BankAccountDTO;
 import org.sid.ebankingbackend.dtos.CurrentBankAccountDTO;
 import org.sid.ebankingbackend.dtos.CustomerDTO;
 import org.sid.ebankingbackend.dtos.SavingBankAccountDTO;
@@ -16,28 +16,28 @@ import org.sid.ebankingbackend.repositories.CustomerRepository;
 import org.sid.ebankingbackend.services.BankAccountService;
 import org.sid.ebankingbackend.services.LoanService;
 import org.sid.ebankingbackend.services.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Autowired;*/
+//import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+/*import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.stream.Stream;
+import java.util.stream.Stream;*/
 
 @SpringBootApplication
 public class EbankingBackendApplication {
 
-    @Autowired
+    /*@Autowired
     private BankAccountService bankAccountService;
     @Autowired
     private LoanService loanService;
     @Autowired
-    private PaymentService paymentService;
+    private PaymentService paymentService;*/
 
     public static void main(String[] args) {
         SpringApplication.run(EbankingBackendApplication.class, args);

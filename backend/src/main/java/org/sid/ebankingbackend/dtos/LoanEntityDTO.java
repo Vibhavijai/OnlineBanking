@@ -1,7 +1,10 @@
 package org.sid.ebankingbackend.dtos;
 
-import lombok.AllArgsConstructor;
+import org.sid.ebankingbackend.enums.LoanStatus;
+
+import java.math.BigDecimal;
 import lombok.Data;
+/* 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -10,14 +13,13 @@ import org.sid.ebankingbackend.entities.Customer;
 import org.sid.ebankingbackend.dtos.LoanPlanDTO;
 import org.sid.ebankingbackend.dtos.LoanTypeDTO;
 import org.sid.ebankingbackend.dtos.CustomerDTO;
+import lombok.AllArgsConstructor;
 
-import org.sid.ebankingbackend.enums.LoanStatus;
 import org.sid.ebankingbackend.enums.OperationType;
 
 import javax.persistence.*;
 
-import java.math.BigDecimal;
-
+*/
 import java.util.Date;
 
 @Data

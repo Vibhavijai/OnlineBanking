@@ -10,6 +10,9 @@ import { CustomerService } from './services/customer.service';
 import { AccountsService } from './services/accounts.service';
 import {CategoryComponent} from "./category/category.component";
 import {AdminpageComponent} from "./adminpage/adminpage.component";
+import {AdminaccountsComponent} from "./adminaccounts/adminaccounts.component";
+import { LoandetailsComponent } from './loandetails/loandetails.component';
+
 const routes: Routes = [
   { path :"customers", component : CustomersComponent},
   { path :"accounts", component : AccountsComponent},
@@ -19,7 +22,9 @@ const routes: Routes = [
   { path :"category", component : CategoryComponent},
   { path :"", redirectTo : "home", pathMatch: "full"},
   { path :"login", component : LoginComponent},
-  { path :"adminpage", component : AdminpageComponent}
+  { path :"adminpage", component : AdminpageComponent},
+  { path :"adminaccounts", component : AdminaccountsComponent},
+  { path :"loandetails", component : LoandetailsComponent}
 ];
 
 @NgModule({
